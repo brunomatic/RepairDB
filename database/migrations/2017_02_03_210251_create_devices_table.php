@@ -20,7 +20,10 @@ class CreateDevicesTable extends Migration
             $table->string('serial_number')->unique();
             $table->string('model');
             $table->text('notes');
+            $table->unsignedInteger('client_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 

@@ -58,9 +58,8 @@ class ClientController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Client $client){
-
-        return view('client.show', compact('client'));
-
+        $devices = $client->devices()->paginate(9);
+        return view('client.show', compact('client', 'devices'));
     }
 
 

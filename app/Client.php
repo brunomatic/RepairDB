@@ -30,4 +30,10 @@ class Client extends Model
     ];
 
 
+    public function devices()
+    {
+        return $this->hasMany(Device::class);
+    }
+
+
 }

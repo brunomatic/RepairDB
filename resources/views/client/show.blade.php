@@ -34,6 +34,37 @@
                     </div>
 
                 </div>
+
+                @foreach($devices as $device)
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                {{ $device->type }}
+                            </div>
+                            <div class="panel-body">
+                                <dl>
+                                    <dt>Proizvođač:</dt>
+                                    <dd>{{ $device->manufacturer }}</dd>
+
+                                    <dt>Serijski broj:</dt>
+                                    <dd>{{ $device->serial_number }}</dd>
+
+                                    <dt>Model:</dt>
+                                    <dd>{{ $device->model }}</dd>
+                                </dl>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="{{action('DeviceController@show', $device->id)}}" class="btn btn-primary">Detalji</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="text-center">
+                {{ $devices->links() }}
             </div>
         </div>
     </div>

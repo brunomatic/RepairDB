@@ -27,4 +27,9 @@ class Device extends Model
         return $this->hasMany(Job::class);
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
 }

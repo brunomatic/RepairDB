@@ -65,6 +65,22 @@
                         </li>
                     </ul>
 
+
+                    <form action="{{action('DeviceController@index')}}" method="get" class="navbar-form navbar-left">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control"
+                                       value="{{ request()->get('search', null) }}"
+                                       placeholder="Pretraži po SN..">
+                                <span class="input-group-btn">
+				                        <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+			                        </span>
+                            </div>
+                        </div>
+                    </form>
+
+
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
