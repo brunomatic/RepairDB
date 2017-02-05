@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Device;
 use App\Http\Requests\DeviceCreateRequest;
 use App\Job;
@@ -34,7 +35,9 @@ class DeviceController extends Controller
 
         $jobs = $device->jobs()->with('user', 'parts')->latest()->paginate(self::DEFAULT_PAGINATION);
 
-        return view('device.show', compact('device', 'jobs'));
+        $client = $device->client;
+
+        return view('device.show', compact('device', 'jobs', 'client'));
     }
 
 
@@ -45,7 +48,9 @@ class DeviceController extends Controller
      */
     public function showCreateForm()
     {
-        return view('device.create');
+        $clients = Client::all('name')->pluck('name');
+
+        return view('device.create', compact('clients'));
     }
 
 
@@ -61,6 +66,8 @@ class DeviceController extends Controller
 
         $device->fill($request->all());
 
+        $device->client()->associate(Client::where('name',$request->client_name)->first());
+
         $device->save();
 
         return redirect()->action('DeviceController@show', $device->id);
@@ -73,9 +80,15 @@ class DeviceController extends Controller
      * @param Device $device
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showEditForm(Device $device)
+    public function showEditForm($device_id)
     {
-        return view('device.edit', compact('device'));
+        $device = Device::with('client')
+            ->where('id', $device_id)
+            ->first();
+
+        $clients = Client::all('name')->pluck('name');
+
+        return view('device.edit', compact('device', 'clients'));
     }
 
 
@@ -88,6 +101,10 @@ class DeviceController extends Controller
      */
     public function edit(Device $device, DeviceCreateRequest $request)
     {
+        $client = Client::where('name',$request->client_name)->first();
+
+        $device->client()->associate($client);
+
         $device->update($request->all());
 
         return redirect()->action('DeviceController@show', $device->id);

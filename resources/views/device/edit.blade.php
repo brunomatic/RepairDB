@@ -11,11 +11,35 @@
                               method="POST" class="form-horizontal">
                         {{csrf_field()}}
 
-                        <!--        manufacturer        -->
+
+                        <!--        client        -->
+                            <div class="form-group{{ $errors->has('client_name') ? ' has-error' : '' }}">
+                                <label for="name" class="control-label col-sm-2">Klijent:</label>
+                                <div class="col-sm-10">
+                                    <input list="clients" type="text" id="client_name" name="client_name"
+                                           value="{{ $device->client->name }}"
+                                           class="form-control" autofocus>
+                                    <datalist id="clients">
+                                        @foreach($clients as $client)
+                                            <option value="{{ $client }}">
+                                        @endforeach
+                                    </datalist>
+                                    @if ($errors->has('client_name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('client_name') }}</strong>
+                                        </span>
+                                    @endif
+
+                                </div>
+                            </div>
+
+
+                            <!--        manufacturer        -->
                             <div class="form-group{{ $errors->has('manufacturer') ? ' has-error' : '' }}">
                                 <label for="name" class="control-label col-sm-2">Proizvođač:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="manufacturer" name="manufacturer" value="{{ $device->manufacturer }}"
+                                    <input type="text" id="manufacturer" name="manufacturer"
+                                           value="{{ $device->manufacturer }}"
                                            class="form-control" required autofocus>
                                     @if ($errors->has('manufacturer'))
                                         <span class="help-block">
@@ -47,7 +71,8 @@
                             <div class="form-group{{ $errors->has('serial_number') ? ' has-error' : '' }}">
                                 <label for="serial_number" class="control-label col-sm-2">Serijski broj:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="serial_number" name="serial_number" value="{{ $device->serial_number }}"
+                                    <input type="text" id="serial_number" name="serial_number"
+                                           value="{{ $device->serial_number }}"
                                            class="form-control" required autofocus>
                                     @if ($errors->has('serial_number'))
                                         <span class="help-block">
@@ -79,7 +104,7 @@
                             <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
                                 <label for="notes" class="control-label col-sm-2">Bilješke:</label>
                                 <div class="col-sm-10">
-                                    <textarea id="notes" name="notes" rows = "10"
+                                    <textarea id="notes" name="notes" rows="10"
                                               class="form-control" autofocus>{{ $device->notes }}</textarea>
                                     @if ($errors->has('notes'))
                                         <span class="help-block">
@@ -89,7 +114,6 @@
 
                                 </div>
                             </div>
-
 
 
                             <div class="form-group">
