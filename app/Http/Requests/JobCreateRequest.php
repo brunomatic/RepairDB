@@ -23,9 +23,13 @@ class JobCreateRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'notes' => 'string',
-
+            'parts.*.description' => 'string|max:255',
+            'parts.*.serial_number' => 'string|max:255|unique:parts',
+            'parts.*.manufacturer' => 'string|max:255',
+            'parts.*.type.*' => 'string|max:255',
         ];
     }
 }

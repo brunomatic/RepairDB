@@ -99,6 +99,7 @@
 </div>
 
 <!-- Scripts -->
+@yield('javascript')
 <script src="/js/app.js"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+
+                <!--            Device details          -->
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $device->serial_number }}</div>
                     <div class="panel-body">
@@ -26,6 +28,7 @@
                         </dl>
                     </div>
 
+                    <!--            Device control          -->
                     <div class="panel-footer">
                         <a href="{{ action('DeviceController@showEditForm', $device->id) }}" class="btn btn-primary">Uredi</a>
                         <a href="{{ action('JobController@showCreateForm', $device->id) }}" class="btn btn-success">Novi
@@ -50,6 +53,25 @@
                                     <dt>Bilješke:</dt>
                                     <dd>{{ $job->notes }}</dd>
                                 </dl>
+                                @if((!($job->parts->isEmpty())))
+                                    <hr>
+                                    <h4>Dijelovi</h4>
+                                    <dl class="dl-horizontal">
+                                        @foreach($job->parts as $part)
+                                            <div class="well-sm">
+                                                <dt>Tip:</dt>
+                                                <dd>{{ $part->type }}</dd>
+                                                <dt>Serijski broj:</dt>
+                                                <dd>{{ $part->serial_number }}</dd>
+                                            </div>
+                                        @endforeach
+                                    </dl>
+                                @endif
+                            </div>
+
+                            <!--        Job control         -->
+                            <div class="panel-footer">
+                                <a href="{{ action('JobController@show', $job->id) }}" class="btn btn-link">Detalji</a>
                             </div>
                         </div>
                     @endforeach

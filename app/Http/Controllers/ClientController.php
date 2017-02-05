@@ -8,6 +8,12 @@ use App\Http\Requests\ClientCreateRequest;
 class ClientController extends Controller
 {
 
+
+    /**
+     * Lists/searches clients based on their name
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $clients = Client::search(request()->query('search', null))
@@ -17,10 +23,22 @@ class ClientController extends Controller
     }
 
 
+    /**
+     * Redirects to create form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showCreateForm(){
         return view('client.create');
     }
 
+
+    /**
+     * Stores new client to DB
+     *
+     * @param ClientCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(ClientCreateRequest $request){
 
         $client = new Client;
@@ -33,6 +51,12 @@ class ClientController extends Controller
     }
 
 
+    /**
+     * Shows a single client
+     *
+     * @param Client $client
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Client $client){
 
         return view('client.show', compact('client'));
@@ -40,12 +64,25 @@ class ClientController extends Controller
     }
 
 
+    /**
+     * Redirects to edit form
+     *
+     * @param Client $client
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showEditForm(Client $client){
 
         return view('client.edit', compact('client'));
     }
 
 
+    /**
+     * Stores edited client to db
+     *
+     * @param Client $client
+     * @param ClientCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit(Client $client, ClientCreateRequest $request){
 
             $client->update($request->all());

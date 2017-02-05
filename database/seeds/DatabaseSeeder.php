@@ -25,6 +25,12 @@ class DatabaseSeeder extends Seeder
             $device->jobs()->saveMany(
               factory(App\Job::class)->times(15)->make()
             );
+
+            foreach ($device->jobs as $job){
+                $job->parts()->saveMany(
+                  factory(App\Part::class)->times(2)->make()
+                );
+            }
         }
 
     }
