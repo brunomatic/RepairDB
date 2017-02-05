@@ -60,3 +60,14 @@ $factory->define(App\Job::class, function (Faker\Generator $faker) {
         'notes' => $faker->sentence(),
     ];
 });
+
+
+$factory->define(App\Part::class, function (Faker\Generator $faker) {
+
+    return [
+        'manufacturer' => $faker->randomElement(array('Kavo', 'Planmeca', 'NSK')),
+        'type' => $faker->randomElement(array('ležaj', 'osovina', 'elektronika')),
+        'serial_number' => str_random(10),
+        'description' => $faker->sentence(),
+    ];
+});

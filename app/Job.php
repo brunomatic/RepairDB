@@ -19,4 +19,8 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function parts(){
+        return $this->hasMany(Part::class);
+    }
+
 }
